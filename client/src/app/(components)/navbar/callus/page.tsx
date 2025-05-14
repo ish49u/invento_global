@@ -7,7 +7,10 @@ interface CallUsDropdownProps {
   onClose: () => void;
 }
 
-const CallUsDropdown: React.FC<CallUsDropdownProps> = ({ isOpen, onClose }) => {
+export const CallUsDropdown: React.FC<CallUsDropdownProps> = ({
+  isOpen,
+  onClose,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -48,5 +51,3 @@ const CallUsDropdown: React.FC<CallUsDropdownProps> = ({ isOpen, onClose }) => {
     </div>
   );
 };
-
-export default CallUsDropdown;
