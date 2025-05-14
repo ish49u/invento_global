@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { PhoneIcon, X } from "lucide-react";
+import { X } from "lucide-react";
 import { FiChevronRight } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
