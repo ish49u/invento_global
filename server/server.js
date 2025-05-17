@@ -7,7 +7,7 @@ const fs = require("fs");
 const app = express();
 
 // CORS configuration to allow multiple origins
-const allowedOrigins = ["http://localhost:3000", "http://localhost:3001"];
+const allowedOrigins = ["https://inventoglobal.com", "http://localhost:3000"];
 
 app.use(
   cors({
