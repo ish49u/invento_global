@@ -1,0 +1,384 @@
+"use client";
+import { useState, useEffect } from "react";
+
+const categories = [
+  "hardware-hub",
+  "fasteners-and-screws",
+  "handcrafted-bags",
+  "copper-handicrafts",
+];
+
+// Comment type definition
+interface ContactMessage {
+  _id: string;
+  name: string;
+  email: string;
+  message: string;
+}
+
+export default function Dashboard() {
+  const [category, setCategory] = useState("hardware-hub");
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    imageFile: null as File | null,
+  });
+  const [editId, setEditId] = useState<string | null>(null);
+  const [selectedSection, setSelectedSection] = useState<
+    "products" | "comments"
+  >("products");
+
+  const [products, setProducts] = useState<any[]>([]);
+  const [comments, setComments] = useState<ContactMessage[]>([]);
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: "success" | "error" | null;
+  } | null>(null);
+
+  // Added state for selected category
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  // Filter products based on selected category
+  const filteredProducts = selectedCategory
+    ? products.filter((product) => product.category === selectedCategory)
+    : products;
+
+  useEffect(() => {
+    // Fetch products to display (replace with your API endpoint)
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("https://inventoglobal.com/api/products");
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        setNotification({
+          message: "Failed to load products.",
+          type: "error",
+        });
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  // Fetch comments
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await fetch("https://inventoglobal.com/api/contact");
+        const data: ContactMessage[] = await response.json();
+        setComments(data);
+      } catch (error) {
+        setNotification({
+          message: "Failed to load comments.",
+          type: "error",
+        });
+      }
+    };
+    fetchComments();
+  }, []);
+
+  const resetForm = () => {
+    setForm({ title: "", description: "", imageFile: null });
+    setEditId(null);
+  };
+
+  const handleAdd = async () => {
+    if (!form.title || !form.description) {
+      setNotification({
+        message: "Title and Description are required.",
+        type: "error",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("category", category);
+    if (form.imageFile) {
+      formData.append("image", form.imageFile);
+    }
+
+    try {
+      await fetch("https://inventoglobal.com/api/products", {
+        method: "POST",
+        body: formData,
+      });
+      setNotification({
+        message: "Product added successfully!",
+        type: "success",
+      });
+      resetForm();
+      // Re-fetch products after adding
+      const response = await fetch("https://inventoglobal.com/api/products");
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      setNotification({
+        message: "Failed to add product. Please try again.",
+        type: "error",
+      });
+    }
+
+    // Hide the notification after 3 seconds
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  const handleUpdate = async () => {
+    if (!editId || !form.title || !form.description) {
+      setNotification({
+        message: "Title and Description are required.",
+        type: "error",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("category", category);
+    if (form.imageFile) {
+      formData.append("image", form.imageFile);
+    }
+
+    try {
+      await fetch(`https://inventoglobal.com/api/products/${editId}`, {
+        method: "PUT",
+        body: formData,
+      });
+      setNotification({
+        message: "Product updated successfully!",
+        type: "success",
+      });
+      resetForm();
+      // Re-fetch products after update
+      const response = await fetch("https://inventoglobal.com/api/products");
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      setNotification({
+        message: "Failed to update product. Please try again.",
+        type: "error",
+      });
+    }
+
+    // Hide the notification after 3 seconds
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await fetch(`https://inventoglobal.com/api/products/${id}`, {
+        method: "DELETE",
+      });
+      setNotification({
+        message: "Product deleted successfully!",
+        type: "success",
+      });
+      // Re-fetch products after deletion
+      const response = await fetch("https://inventoglobal.com/api/products");
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      setNotification({
+        message: "Failed to delete product. Please try again.",
+        type: "error",
+      });
+    }
+
+    // Hide the notification after 3 seconds
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  const handleEdit = (product: any) => {
+    setForm({
+      title: product.title,
+      description: product.description,
+      imageFile: null, // Keep image as null to avoid overwriting it
+    });
+    setCategory(product.category);
+    setEditId(product._id);
+
+    // Scroll to the top when editing a product
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Assuming your product has an _id field
+  };
+
+  return (
+    <div className="flex h-screen pt-24">
+      {/* Sidebar */}
+      <div className="w-1/4 bg-red-900 text-white p-6">
+        <h2 className="text-2xl font-bold mb-6">Dashboard</h2>
+        <button
+          onClick={() => setSelectedSection("products")}
+          className="bg-white text-black w-full p-2 rounded font-semibold mb-6"
+        >
+          Manage Products
+        </button>
+        <button
+          onClick={() => setSelectedSection("comments")}
+          className="bg-white text-black w-full p-2 rounded font-semibold"
+        >
+          Comments
+        </button>
+      </div>
+
+      {/* Content Area */}
+      <div className="w-full p-8 overflow-y-auto bg-gray-100 text-black">
+        {selectedSection === "products" ? "" : ""}
+
+        {/* Notification */}
+        {notification && (
+          <div
+            className={`p-4 mb-4 rounded text-white ${
+              notification.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
+          >
+            {notification.message}
+          </div>
+        )}
+
+        {selectedSection === "products" ? (
+          <div>
+            {/* Product Form */}
+            <div className="bg-white p-6 rounded shadow mb-8">
+              <h2 className="text-xl font-semibold mb-4">
+                {editId ? "Edit Product" : "Add New Product"}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input
+                  className="border p-2 rounded"
+                  placeholder="Title"
+                  value={form.title}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                />
+                <input
+                  className="border p-2 rounded"
+                  placeholder="Description"
+                  value={form.description}
+                  onChange={(e) =>
+                    setForm({ ...form, description: e.target.value })
+                  }
+                />
+                <select
+                  className="border p-2 rounded"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  className="border p-2 rounded"
+                  type="file"
+                  onChange={(e) =>
+                    setForm({ ...form, imageFile: e.target.files?.[0] || null })
+                  }
+                />
+              </div>
+              <div className="mt-4">
+                {editId ? (
+                  <>
+                    <button
+                      onClick={handleUpdate}
+                      className="bg-yellow-500 text-white px-4 py-2 rounded mr-2"
+                    >
+                      Update
+                    </button>
+                    <button
+                      onClick={() => handleDelete(editId)}
+                      className="bg-red-500 text-white px-4 py-2 rounded"
+                    >
+                      Delete
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={handleAdd}
+                    className="bg-red-500 text-white px-4 py-2 rounded"
+                  >
+                    Add Product
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Category Buttons */}
+            <div className="mb-8">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)} // Update selected category
+                  className="text-sm px-2 py-1 bg-gray-500 text-white rounded mr-4"
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Products by Selected Category */}
+            {selectedCategory && (
+              <h3 className="text-2xl font-bold mb-4">
+                {selectedCategory} Products
+              </h3>
+            )}
+
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {filteredProducts.map((product) => (
+                <div
+                  key={product._id}
+                  className="bg-white p-4 rounded shadow hover:shadow-md transition"
+                >
+                  <h3 className="text-xs font-bold">{product.title}</h3>
+                  <p className="text-xs text-gray-600 h-20">
+                    {product.description}
+                  </p>
+                  {product.image && (
+                    <img
+                      src={`https://inventoglobal.com${product.image}`}
+                      alt={product.title}
+                      className="w-full h-20 object-cover mt-2 rounded"
+                    />
+                  )}
+                  <div className="mt-4 flex gap-2">
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product._id)}
+                      className="bg-red-500 text-white px-2 py-1 rounded text-xs"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div>
+            {/* Comments List */}
+            <div className="space-y-4">
+              {comments.map((comment) => (
+                <div key={comment._id} className="bg-white p-4 rounded shadow">
+                  <p>
+                    <strong>Name:</strong> {comment.name}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {comment.email}
+                  </p>
+                  <p>{comment.message}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

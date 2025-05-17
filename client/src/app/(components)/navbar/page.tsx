@@ -6,7 +6,7 @@ import { FiChevronRight } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 import GoogleTranslate from "./translate/page";
-import { CallUsDropdown } from "./callus/callusDropodwn";
+import { CallUsDropdown } from "./callus/page";
 
 // Define the type for google.translate.TranslateElement constructor
 declare global {
