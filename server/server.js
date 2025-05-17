@@ -37,7 +37,7 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 // Serve static files from the uploads folder
-app.use("/uploads", express.static(uploadDir));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // MongoDB connection
 const MONGODB_URI = "mongodb+srv://invento-veekay:inventovee78@cluster0.pum7fkw.mongodb.net/inventoDB";
