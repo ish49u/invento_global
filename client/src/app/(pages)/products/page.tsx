@@ -39,7 +39,7 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/products");
+        const res = await fetch("/api/products");
         const data = await res.json();
         setProducts(data);
       } catch (err) {
@@ -112,7 +112,7 @@ export default function ProductsPage() {
           >
             <div className="lg:w-full w-[50%] lg:h-44 h-24 lg:mb-4 mb-2 overflow-hidden border-2 border-gray-200">
               <img
-                src={`http://localhost:5000${product.image}`}
+                src={`/${product.image}`}
                 alt={product.title}
                 className="w-full h-full object-cover"
               />
