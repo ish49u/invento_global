@@ -1,7 +1,7 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+// next.config.js
+const nextConfig = {
+  basePath: '/admin',
+  trailingSlash: true, // Optional: use based on how your routing is structured
 };
 
-export default nextConfig;
+module.exports = nextConfig;
