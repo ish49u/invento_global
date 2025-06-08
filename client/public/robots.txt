@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://inventoglobal.com
+
+# Sitemaps
+Sitemap: https://inventoglobal.com/sitemap.xml

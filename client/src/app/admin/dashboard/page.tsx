@@ -17,11 +17,23 @@ interface ContactMessage {
 }
 
 export default function Dashboard() {
+  // === Login related state ===
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Hardcoded credentials
+  const validUsers = [
+    { username: "admin", password: "admin123" },
+    { username: "user1", password: "password1" },
+  ];
+
   const [category, setCategory] = useState("hardware-hub");
   const [form, setForm] = useState({
     title: "",
     description: "",
     imageFile: null as File | null,
+    moreDetails: "", // <-- Added this
   });
   const [editId, setEditId] = useState<string | null>(null);
   const [selectedSection, setSelectedSection] = useState<
@@ -44,41 +56,59 @@ export default function Dashboard() {
     : products;
 
   useEffect(() => {
-    // Fetch products to display (replace with your API endpoint)
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch("https://inventoglobal.com/api/products");
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        setNotification({
-          message: "Failed to load products.",
-          type: "error",
-        });
-      }
-    };
-    fetchProducts();
-  }, []);
+    if (loggedIn) {
+      // Fetch products to display (replace with your API endpoint)
+      const fetchProducts = async () => {
+        try {
+          const response = await fetch(
+            "https://inventoglobal.com/api/products"
+          );
+          const data = await response.json();
+          setProducts(data);
+        } catch (error) {
+          setNotification({
+            message: "Failed to load products.",
+            type: "error",
+          });
+        }
+      };
+      fetchProducts();
 
-  // Fetch comments
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await fetch("https://inventoglobal.com/api/contact");
-        const data: ContactMessage[] = await response.json();
-        setComments(data);
-      } catch (error) {
-        setNotification({
-          message: "Failed to load comments.",
-          type: "error",
-        });
-      }
-    };
-    fetchComments();
-  }, []);
+      // Fetch comments
+      const fetchComments = async () => {
+        try {
+          const response = await fetch("https://inventoglobal.com/api/contact");
+          const data: ContactMessage[] = await response.json();
+          setComments(data);
+        } catch (error) {
+          setNotification({
+            message: "Failed to load comments.",
+            type: "error",
+          });
+        }
+      };
+      fetchComments();
+    }
+  }, [loggedIn]);
+
+  // Login handler
+  const handleLogin = () => {
+    const foundUser = validUsers.find(
+      (user) => user.username === username && user.password === password
+    );
+    if (foundUser) {
+      setLoggedIn(true);
+      setNotification(null);
+    } else {
+      setNotification({
+        message: "Invalid username or password",
+        type: "error",
+      });
+    }
+  };
 
   const resetForm = () => {
-    setForm({ title: "", description: "", imageFile: null });
+    setForm({ title: "", description: "", imageFile: null, moreDetails: "" });
     setEditId(null);
   };
 
@@ -95,6 +125,7 @@ export default function Dashboard() {
     formData.append("title", form.title);
     formData.append("description", form.description);
     formData.append("category", category);
+    formData.append("moreDetails", form.moreDetails);
     if (form.imageFile) {
       formData.append("image", form.imageFile);
     }
@@ -137,6 +168,8 @@ export default function Dashboard() {
     formData.append("title", form.title);
     formData.append("description", form.description);
     formData.append("category", category);
+    formData.append("moreDetails", form.moreDetails);
+
     if (form.imageFile) {
       formData.append("image", form.imageFile);
     }
@@ -194,7 +227,8 @@ export default function Dashboard() {
     setForm({
       title: product.title,
       description: product.description,
-      imageFile: null, // Keep image as null to avoid overwriting it
+      imageFile: null,
+      moreDetails: product.moreDetails || "", // <-- Add this // Keep image as null to avoid overwriting it
     });
     setCategory(product.category);
     setEditId(product._id);
@@ -203,6 +237,58 @@ export default function Dashboard() {
     window.scrollTo({ top: 0, behavior: "smooth" }); // Assuming your product has an _id field
   };
 
+  // ===== Render =====
+  // ===== Render =====
+  if (!loggedIn) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <div className="bg-white p-8 rounded shadow-md w-80">
+          <h2 className="text-xl font-bold mb-6 text-center text-black">
+            Login to Dashboard
+          </h2>
+          {notification && (
+            <div
+              className={`p-2 mb-4 rounded text-white ${
+                notification.type === "error" ? "bg-red-500" : "bg-green-500"
+              }`}
+            >
+              {notification.message}
+            </div>
+          )}
+          <div className="mb-4">
+            <label className="block mb-1 font-semibold text-black">
+              Username
+            </label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full border p-2 rounded"
+              placeholder="Enter your username"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block mb-1 font-semibold text-black">
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border p-2 rounded"
+              placeholder="Enter your password"
+            />
+          </div>
+          <button
+            onClick={handleLogin}
+            className="w-full bg-red-900 text-white p-2 rounded hover:bg-red-700"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="flex h-screen pt-24">
       {/* Sidebar */}
@@ -277,7 +363,22 @@ export default function Dashboard() {
                     setForm({ ...form, imageFile: e.target.files?.[0] || null })
                   }
                 />
+                <div className="mb-4">
+                  <label className="block mb-1 font-semibold text-black">
+                    More Details
+                  </label>
+                  <textarea
+                    value={form.moreDetails}
+                    onChange={(e) =>
+                      setForm({ ...form, moreDetails: e.target.value })
+                    }
+                    className="w-full border p-2 rounded"
+                    rows={4}
+                    placeholder="Enter additional details here..."
+                  />
+                </div>
               </div>
+
               <div className="mt-4">
                 {editId ? (
                   <>
