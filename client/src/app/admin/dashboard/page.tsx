@@ -24,7 +24,7 @@ export default function Dashboard() {
 
   // Hardcoded credentials
   const validUsers = [
-    { username: "admin", password: "admin123" },
+    { username: "inventoadminglobal", password: "ig$@9export" },
     { username: "user1", password: "password1" },
   ];
 
@@ -363,7 +363,7 @@ export default function Dashboard() {
                     setForm({ ...form, imageFile: e.target.files?.[0] || null })
                   }
                 />
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <label className="block mb-1 font-semibold text-black">
                     More Details
                   </label>
@@ -376,7 +376,7 @@ export default function Dashboard() {
                     rows={4}
                     placeholder="Enter additional details here..."
                   />
-                </div>
+                </div> */}
               </div>
 
               <div className="mt-4">
