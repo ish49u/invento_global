@@ -25,7 +25,6 @@ export default function Dashboard() {
   // Hardcoded credentials
   const validUsers = [
     { username: "inventoadminglobal", password: "ig$@9export" },
-    { username: "user1", password: "password1" },
   ];
 
   const [category, setCategory] = useState("hardware-hub");
