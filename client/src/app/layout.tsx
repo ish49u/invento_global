@@ -18,17 +18,24 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title:
-    "Invento Global | Merchant Exporters & Suppliers – Hardware, Tools, Handicrafts",
+  title: "Invento Global | Merchant Exporters of Handicrafts & Tools",
   description:
-    "Merchant Exporters, Mfrs and Suppliers of Fasteners, Screws, Door & Window Hardware Products, Hand Tools, Copper Handicrafts, Handcrafted Bags and more – Trusted Globally.",
+    "Leading merchant exporters of hand tools, copper handicrafts, handcrafted bags, and more. Explore our diverse product range.",
   keywords: [
+    "Merchant Exporters",
     "Invento Global",
-    "Hardware Exporter",
-    "Fasteners Supplier",
-    "Hand Tools India",
-    "Copper Handicrafts",
+    "Hand Tools Export",
+    "Copper Handicrafts Export",
   ],
+  authors: [{ name: "Invento Global" }],
+  openGraph: {
+    title: "Invento Global",
+    description: "Trusted merchant exporters of quality products from India.",
+    url: "https://www.inventoglobal.com",
+    siteName: "Invento Global",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
