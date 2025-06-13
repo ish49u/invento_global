@@ -27,9 +27,10 @@ app.use(express.json());
 
 // Ensure uploads folder exists, and create it if necessary
 const uploadDir = path.join(__dirname, "uploads");
+
 if (!fs.existsSync(uploadDir)) {
   try {
-    fs.mkdirSync(uploadDir);
+    fs.mkdirSync(uploadDir, { recursive: true });
     console.log("Uploads directory created");
   } catch (err) {
     console.error("Error creating uploads directory:", err);
@@ -37,7 +38,7 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 // Serve static files from the uploads folder
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(uploadDir));
 
 // MongoDB connection
 const MONGODB_URI = "mongodb+srv://invento-veekay:inventovee78@cluster0.pum7fkw.mongodb.net/inventoDB";

@@ -138,7 +138,7 @@ export default function Contact() {
               Point Mehta Road Amritsar, Punjab – 143501
             </li>
             <li>
-              <strong>Email:</strong>export@inventoglobal.com
+              <strong>Email:</strong>inventoglobal@gmail.com
             </li>
             <li>
               <strong>Phone:</strong>+91 94174 30218,+91 62839 48363
