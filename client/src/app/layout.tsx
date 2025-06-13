@@ -22,6 +22,13 @@ export const metadata: Metadata = {
     "Invento Global | Merchant Exporters & Suppliers – Hardware, Tools, Handicrafts",
   description:
     "Merchant Exporters, Mfrs and Suppliers of Fasteners, Screws, Door & Window Hardware Products, Hand Tools, Copper Handicrafts, Handcrafted Bags and more – Trusted Globally.",
+  keywords: [
+    "Invento Global",
+    "Hardware Exporter",
+    "Fasteners Supplier",
+    "Hand Tools India",
+    "Copper Handicrafts",
+  ],
 };
 
 export default function RootLayout({
@@ -32,6 +39,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/logo.png" sizes="any" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
