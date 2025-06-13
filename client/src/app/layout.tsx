@@ -39,7 +39,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/logo.png" sizes="any" />
+        <link
+          rel="icon"
+          href="https://inventoglobal.com/logo.png"
+          sizes="any"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
