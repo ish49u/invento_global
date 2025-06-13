@@ -41,7 +41,7 @@ export default function RootLayout({
       <head>
         <link
           rel="icon"
-          href="https://inventoglobal.com/logo.png"
+          href="https://inventoglobal.com/favicon.ico"
           sizes="any"
         />
         <script

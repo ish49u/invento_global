@@ -22,7 +22,7 @@ const FounderMessage = () => {
           {/* Founder Image */}
           <div className="lg:w-32 lg:h-32 w-16 h-16 mx-auto lg:mb-8 mb-4 rounded-full overflow-hidden shadow-xl">
             <Image
-              src="/founder.png" // Path to founder image
+              src="/founder.jpeg" // Path to founder image
               alt="Akhil Aggarwal - Founder of Vee Kay Enterprises"
               width={128}
               height={128}
