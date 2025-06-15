@@ -3,16 +3,13 @@ import { Exo_2, Lato } from "next/font/google";
 import "./globals.css";
 import Navbar from "./(components)/navbar/page";
 import Footer from "./(components)/footer/page";
-import { useEffect } from "react";
+import dynamic from "next/dynamic";
 
-// Extend the window type
-declare global {
-  interface Window {
-    adsbygoogle: unknown[];
-  }
-}
+// 🟢 Dynamically import GoogleAd (since it's a client component)
+const GoogleAd = dynamic(() => import("./(components)/GoogleAd"), {
+  ssr: false,
+});
 
-// Fonts setup
 const exo2 = Exo_2({
   variable: "--font-exo",
   weight: ["400", "600"],
@@ -47,28 +44,6 @@ export const metadata: Metadata = {
   },
 };
 
-// GoogleAd component inside layout
-function GoogleAd() {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error("AdSense error:", e);
-    }
-  }, []);
-
-  return (
-    <ins
-      className="adsbygoogle"
-      style={{ display: "block" }}
-      data-ad-client="ca-pub-8089707704088165"
-      data-ad-slot="4478207538"
-      data-ad-format="auto"
-      data-full-width-responsive="true"
-    ></ins>
-  );
-}
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -82,17 +57,12 @@ export default function RootLayout({
           href="https://inventoglobal.com/favicon.ico"
           sizes="any"
         />
-
-        {/* ✅ Google AdSense verification meta tag */}
         <meta name="google-adsense-account" content="ca-pub-8089707704088165" />
-        {/* ✅ Google AdSense Script */}
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8089707704088165"
           crossOrigin="anonymous"
         ></script>
-
-        {/* ✅ Schema JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -115,14 +85,14 @@ export default function RootLayout({
       <body className={`${exo2.variable} ${lato.variable} antialiased`}>
         <Navbar />
 
-        {/* ✅ Ad below Navbar */}
+        {/* ✅ Show Ad after Navbar */}
         <div className="my-4">
           <GoogleAd />
         </div>
 
         {children}
 
-        {/* ✅ Ad above Footer */}
+        {/* ✅ Show Ad before Footer */}
         <div className="my-4">
           <GoogleAd />
         </div>
