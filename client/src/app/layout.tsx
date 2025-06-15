@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Exo_2, Lato } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./(components)/ClientLayout"; // Adjust path as needed
+import GoogleAnalytics from "./(components)/GoogleAnalytics"; // Adjust path
 
 const exo2 = Exo_2({
   variable: "--font-exo",
@@ -76,6 +77,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${exo2.variable} ${lato.variable} antialiased`}>
+        <GoogleAnalytics />
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
