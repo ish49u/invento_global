@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import { Exo_2, Lato } from "next/font/google";
 import "./globals.css";
-import Navbar from "./(components)/navbar/page";
-import Footer from "./(components)/footer/page";
-import dynamic from "next/dynamic";
-
-// 🟢 Dynamically import GoogleAd (since it's a client component)
-const GoogleAd = dynamic(() => import("./(components)/GoogleAd"), {
-  ssr: false,
-});
+import ClientLayout from "./(components)/ClientLayout"; // Adjust path as needed
 
 const exo2 = Exo_2({
   variable: "--font-exo",
@@ -46,9 +39,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <head>
@@ -83,21 +76,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${exo2.variable} ${lato.variable} antialiased`}>
-        <Navbar />
-
-        {/* ✅ Show Ad after Navbar */}
-        <div className="my-4">
-          <GoogleAd />
-        </div>
-
-        {children}
-
-        {/* ✅ Show Ad before Footer */}
-        <div className="my-4">
-          <GoogleAd />
-        </div>
-
-        <Footer />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

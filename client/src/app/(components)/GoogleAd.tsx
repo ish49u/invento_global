@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 
-// Extend the window object
 declare global {
   interface Window {
     adsbygoogle: unknown[];
