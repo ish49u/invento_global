@@ -2,11 +2,17 @@ import Link from "next/link";
 
 const Hero: React.FC = () => {
   return (
-    <section className="bg-secondary relative w-full lg:h-screen h-[500px]">
+    <section
+      className="bg-secondary relative w-full lg:h-screen h-[500px]"
+      aria-label="Hero section about Invento Global"
+    >
       <video
         autoPlay
         loop
         muted
+        playsInline
+        preload="auto"
+        title="Invento Global - Export Showcase"
         className="absolute left-0 top-[88px] w-full lg:w-[50%] h-[200px] lg:h-[640px] object-cover"
       >
         <source src="/video/INVENTO_GLOBAL.mp4" type="video/mp4" />
@@ -16,8 +22,8 @@ const Hero: React.FC = () => {
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
 
       <div className="lg:top-1/3 top-1/2 lg:left-1/2 absolute inset-0 flex flex-col lg:items-center lg:justify-center lg:text-center text-white px-4 justify-start items-start text-start">
-        <h1 className="font-exo text-xl sm:text-5xl lg:text-5xl font-bold lg:mb-4 mb-0 text-black lg:px-12 lg:mt-0 px-0 mt-14">
-          Crafting Excellence. Connecting the World.
+        <h1 className="font-exo text-xl sm:text-5xl lg:text-3xl font-bold lg:mb-4 mb-0 text-black lg:px-12 lg:mt-0 px-0 mt-14">
+          Premium Hardware Exporters – Crafting Excellence, Connecting the World
         </h1>
         <p className="text-[12px] lg:text-[16px] mb-8 lg:max-w-xl w-full text-black">
           <span className="font-semibold text-">Premium Quality</span>
@@ -38,12 +44,16 @@ const Hero: React.FC = () => {
         <div className="flex flex-row gap-4 lg:px-0 px-4">
           <Link
             href="#get-a-quote"
+            aria-label="Navigate to quote request section"
+            title="Get a quotation for our products"
             className="bg-secondary text-black lg:py-2 py-1 lg:px-6 px-3 rounded-lg hover:bg-hoversecondary transition-colors no-underline"
           >
             Get a Quote
           </Link>
           <a
             href="#explore-products"
+            aria-label="Scroll to explore products"
+            title="Explore our product offerings"
             className="border-2 bg-primary text-secondary lg:py-2 py-1 lg:px-6 px-3 rounded-lg hover:bg-hoverprimary transition-colors no-underline"
           >
             Explore Products
