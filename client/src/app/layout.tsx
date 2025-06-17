@@ -3,6 +3,7 @@ import { Exo_2, Lato } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./(components)/ClientLayout"; // Adjust path as needed
 import GoogleAnalytics from "./(components)/GoogleAnalytics"; // Adjust path
+import GoogleAd from "./(components)/GoogleAd"; // ✅ Your reusable Ad component
 
 const exo2 = Exo_2({
   variable: "--font-exo",
@@ -51,12 +52,24 @@ export default function RootLayout({
           href="https://inventoglobal.com/favicon.ico"
           sizes="any"
         />
+        <link rel="canonical" href="https://inventoglobal.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="Invento Global" />
+        <meta
+          name="keywords"
+          content="Invento Global, hardware exporters, fastener suppliers, Indian manufacturers, brass fittings, copper handicrafts"
+        />
+
+        {/* Google AdSense script - loaded once globally */}
         <meta name="google-adsense-account" content="ca-pub-8089707704088165" />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8089707704088165"
           crossOrigin="anonymous"
         ></script>
+
+        {/* Schema.org JSON-LD */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -78,7 +91,14 @@ export default function RootLayout({
       </head>
       <body className={`${exo2.variable} ${lato.variable} antialiased`}>
         <GoogleAnalytics />
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          {children}
+
+          {/* Bottom ad only using component */}
+          <div style={{ padding: "20px 0", textAlign: "center" }}>
+            <GoogleAd />
+          </div>
+        </ClientLayout>
       </body>
     </html>
   );

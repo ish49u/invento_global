@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Head from "next/head";
 
 const Products: React.FC = () => {
   const handleToggleShow = (index: number) => {
@@ -7,6 +8,22 @@ const Products: React.FC = () => {
     updated[index] = !updated[index];
     setShowMore(updated);
   };
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.innerHTML = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "Invento Global",
+      url: "https://www.inventoglobal.com",
+      logo: "https://www.inventoglobal.com/logo.png",
+      sameAs: [],
+      description:
+        "Invento Global is a leading exporter of premium hardware, brass hinges, screws, hand tools, handcrafted bags, and copper handicrafts.",
+    });
+    document.head.appendChild(script);
+  }, []);
 
   const products = [
     {
@@ -238,99 +255,129 @@ const Products: React.FC = () => {
   const [showMore, setShowMore] = useState(products.map(() => false));
 
   return (
-    <section
-      className="lg:py-10 py-0 bg-white px-4 lg:px-32"
-      id="explore-products"
-    >
-      <h2 className="lg:text-4xl text-xl font-bold text-center lg:mb-16 mb-4 text-black">
-        Explore Our{" "}
-        <span className="relative inline-block">
-          Products
-          <span className="absolute left-1/2 bottom-0 w-1/2 h-0.5 bg-primary"></span>
-        </span>
-      </h2>
+    <>
+      <Head>
+        <title>
+          Premium Hardware, Brass Hinges, Screws, Copper Products | Invento
+          Global
+        </title>
+        <meta
+          name="description"
+          content="Explore high-quality hardware, fasteners, screws, brass fittings, copperware, and handmade bags from Invento Global — trusted exporters in India."
+        />
+        <meta
+          name="keywords"
+          content="Brass Hinges, Screws, Fasteners, Copper Bottles, Jute Bags, Hand Tools, Hardware Exporters India, Invento Global"
+        />
+        <meta property="og:title" content="Invento Global Products" />
+        <meta
+          property="og:description"
+          content="Top-quality hardware, screws, copper handicrafts, and eco bags from leading Indian exporters Invento Global."
+        />
+        <meta
+          property="og:image"
+          content="https://www.inventoglobal.com/cover.jpg"
+        />
+        <meta
+          property="og:url"
+          content="https://www.inventoglobal.com/products"
+        />
+        <meta name="robots" content="index, follow" />
+      </Head>
+      <section
+        className="lg:py-10 py-0 bg-white px-4 lg:px-32"
+        id="explore-products"
+      >
+        <h2 className="lg:text-4xl text-xl font-bold text-center lg:mb-16 mb-4 text-black">
+          Explore Our{" "}
+          <span className="relative inline-block">
+            Products
+            <span className="absolute left-1/2 bottom-0 w-1/2 h-0.5 bg-primary"></span>
+          </span>
+        </h2>
 
-      <div className="space-y-24">
-        {products.map((product, index) => {
-          const visibleItems = showMore[index]
-            ? product.related
-            : product.related.slice(0, 4);
+        <div className="space-y-24">
+          {products.map((product, index) => {
+            const visibleItems = showMore[index]
+              ? product.related
+              : product.related.slice(0, 4);
 
-          return (
-            <div key={index} className="space-y-8">
-              <div
-                className={`flex flex-col md:flex-row lg:gap-10 gap-3 ${
-                  index % 2 === 1 ? "md:flex-row-reverse" : ""
-                }`}
-              >
-                <div className="lg:w-[500px] lg:h-[300px] w-[50%] h-[150px] mx-auto overflow-hidden rounded-lg shadow-lg">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="md:w-1/2 w-full lg:px-6 text-center md:text-left">
-                  <h3 className="lg:text-3xl text-xl font-extrabold lg:mb-4 mb-2 text-primary">
-                    {product.name}
-                  </h3>
-                  <p className="lg:text-lg text-sm text-gray-700">
-                    {product.description}
-                  </p>
-                  <div className="lg:mt-6 mt-3">
-                    <button className="lg:px-6 px-3 lg:py-3 py-2 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
-                      View All Products
-                    </button>
+            return (
+              <div key={index} className="space-y-8">
+                <div
+                  className={`flex flex-col md:flex-row lg:gap-10 gap-3 ${
+                    index % 2 === 1 ? "md:flex-row-reverse" : ""
+                  }`}
+                >
+                  <div className="lg:w-[500px] lg:h-[300px] w-[50%] h-[150px] mx-auto overflow-hidden rounded-lg shadow-lg">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:gap-6 gap-3 lg:py-10 py-5">
-                {visibleItems.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex flex-col justify-between bg-[#F9F9F9] border border-gray-200 rounded-2xl overflow-hidden shadow hover:shadow-md transition duration-300 text-center lg:h-[450px] h-[300px]"
-                  >
-                    <div>
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="lg:w-full w-[50%] h-[150px] object-cover lg:mt-0 mt-2"
-                      />
-                      <div className="lg:p-4 p-0 lg:h-[60px]">
-                        <h4 className="lg:text-lg text-sm font-semibold lg:mb-2 mb-0 text-black">
-                          {item.name}
-                        </h4>
-                      </div>
-                      <div>
-                        <p className="lg:text-sm text-xs text-gray-600 lg:mb-2 lg:min-h-[48px] min-h-[20px]">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="lg:px-4 px-2 lg:pb-6 pb-3">
-                      <button className="bg-primary w-full text-white px-4 py-2 rounded-lg hover:bg-opacity-80">
-                        Get this product
+                  <div className="md:w-1/2 w-full lg:px-6 text-center md:text-left">
+                    <h3 className="lg:text-3xl text-xl font-extrabold lg:mb-4 mb-2 text-primary">
+                      {product.name}
+                    </h3>
+                    <p className="lg:text-lg text-sm text-gray-700">
+                      {product.description}
+                    </p>
+                    <div className="lg:mt-6 mt-3">
+                      <button className="lg:px-6 px-3 lg:py-3 py-2 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+                        View All Products
                       </button>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
 
-              <div className="text-center lg:mt-4 mt-0">
-                <button
-                  onClick={() => handleToggleShow(index)}
-                  className="text-primary font-medium hover:opacity-80 transition no-underline"
-                >
-                  {showMore[index] ? "Show Less" : "View More Products"}
-                </button>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:gap-6 gap-3 lg:py-10 py-5">
+                  {visibleItems.map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex flex-col justify-between bg-[#F9F9F9] border border-gray-200 rounded-2xl overflow-hidden shadow hover:shadow-md transition duration-300 text-center lg:h-[450px] h-[300px]"
+                    >
+                      <div>
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="lg:w-full w-[50%] h-[150px] object-cover lg:mt-0 mt-2"
+                        />
+                        <div className="lg:p-4 p-0 lg:h-[60px]">
+                          <h4 className="lg:text-lg text-sm font-semibold lg:mb-2 mb-0 text-black">
+                            {item.name}
+                          </h4>
+                        </div>
+                        <div>
+                          <p className="lg:text-sm text-xs text-gray-600 lg:mb-2 lg:min-h-[48px] min-h-[20px]">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="lg:px-4 px-2 lg:pb-6 pb-3">
+                        <button className="bg-primary w-full text-white px-4 py-2 rounded-lg hover:bg-opacity-80">
+                          Get this product
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="text-center lg:mt-4 mt-0">
+                  <button
+                    onClick={() => handleToggleShow(index)}
+                    className="text-primary font-medium hover:opacity-80 transition no-underline"
+                  >
+                    {showMore[index] ? "Show Less" : "View More Products"}
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
+            );
+          })}
+        </div>
+      </section>
+    </>
   );
 };
 

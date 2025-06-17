@@ -1,9 +1,12 @@
-# *
 User-agent: *
+Disallow: /*?add-to-cart=
+Disallow: /product-category/*/feed/
+Disallow: /product/*/feed/
+
 Allow: /
 
 # Host
 Host: https://inventoglobal.com
 
-# Sitemaps
+# Sitemap
 Sitemap: https://inventoglobal.com/sitemap.xml

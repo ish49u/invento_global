@@ -1,18 +1,21 @@
 import FounderMessage from "./FounderMessage";
 import type { Metadata } from "next";
 
-// ✅ Add metadata for SEO
 export const metadata: Metadata = {
-  title: "Founder – Invento Global | Merchant Exporters",
+  title: "Invento Global Founder – Akhil Aggarwal | Merchant Exporters",
   description:
     "Meet the visionary behind Invento Global. Discover our founder’s mission, journey, and commitment to quality in exports.",
-  keywords: [
-    "Founder Invento Global",
-    "Akhil Aggarwal",
-    "Merchant Exporters",
-    "Hand Tools Export India",
-    "Vee Kay Enterprises",
-  ],
+  alternates: {
+    canonical: "https://inventoglobal.com/founder",
+  },
+  openGraph: {
+    title: "Founder – Invento Global | Merchant Exporters",
+    description:
+      "Meet the visionary behind Invento Global. Discover our founder’s mission, journey, and commitment to quality in exports.",
+    url: "https://inventoglobal.com/founder",
+    siteName: "Invento Global",
+    type: "website",
+  },
 };
 
 export default function FounderPage() {
