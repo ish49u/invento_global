@@ -27,9 +27,6 @@ const nextConfig: NextConfig = {
       // ✅ NEW: Product-category URLs (old WooCommerce categories)
       { source: "/product-category/:slug*", destination: "/", permanent: true },
 
-      // ✅ NEW: add-to-cart parameters anywhere on the site
-      { source: "/:path*/?add-to-cart=:id", destination: "/", permanent: true },
-
       // ✅ NEW: feeds in product/product-category paths
       { source: "/product/:slug*/feed", destination: "/", permanent: true },
       { source: "/product-category/:slug*/feed", destination: "/", permanent: true },
