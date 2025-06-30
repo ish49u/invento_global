@@ -9,22 +9,6 @@ const Products: React.FC = () => {
     setShowMore(updated);
   };
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.innerHTML = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: "Invento Global",
-      url: "https://www.inventoglobal.com",
-      logo: "https://www.inventoglobal.com/logo.png",
-      sameAs: [],
-      description:
-        "Invento Global is a leading exporter of premium hardware, brass hinges, screws, hand tools, handcrafted bags, and copper handicrafts.",
-    });
-    document.head.appendChild(script);
-  }, []);
-
   const products = [
     {
       name: "🛠️ Hardware Hub",
@@ -258,21 +242,25 @@ const Products: React.FC = () => {
     <>
       <Head>
         <title>
-          Premium Hardware, Brass Hinges, Screws, Copper Products | Invento
-          Global
+          Invento by Vee Kay Enterprises | Premium Hardware, Screws, Fasteners &
+          Copper Products
         </title>
         <meta
           name="description"
-          content="Explore high-quality hardware, fasteners, screws, brass fittings, copperware, and handmade bags from Invento Global — trusted exporters in India."
+          content="Explore high-quality hardware, fasteners, screws, brass fittings, copperware, and handmade bags from Invento by Vee Kay Enterprises — trusted Indian exporters with global reach."
         />
         <meta
           name="keywords"
-          content="Brass Hinges, Screws, Fasteners, Copper Bottles, Jute Bags, Hand Tools, Hardware Exporters India, Invento Global"
+          content="Invento, Invento by Vee Kay Enterprises, Brass Hinges, Screws, Fasteners, Copper Bottles, Jute Bags, Hand Tools, Hardware Exporters India"
         />
-        <meta property="og:title" content="Invento Global Products" />
+        <link rel="canonical" href="https://www.inventoglobal.com/products" />
+        <meta
+          property="og:title"
+          content="Invento by Vee Kay Enterprises Products"
+        />
         <meta
           property="og:description"
-          content="Top-quality hardware, screws, copper handicrafts, and eco bags from leading Indian exporters Invento Global."
+          content="Top-quality hardware, screws, copper handicrafts, and eco bags from Invento by Vee Kay Enterprises – leading Indian exporters."
         />
         <meta
           property="og:image"
@@ -284,6 +272,7 @@ const Products: React.FC = () => {
         />
         <meta name="robots" content="index, follow" />
       </Head>
+
       <section
         className="lg:py-10 py-0 bg-white px-4 lg:px-32"
         id="explore-products"

@@ -4,7 +4,7 @@ const GlobalReach: React.FC = () => {
   return (
     <section
       className="lg:py-20 py-10 bg-[#F1E2B3] text-center relative overflow-hidden lg:mt-0 mt-5"
-      aria-label="Invento Global - Worldwide Export Presence"
+      aria-label="Invento by Vee Kay Enterprises - Worldwide Export Presence"
     >
       {/* Background Image */}
       <div
@@ -16,7 +16,7 @@ const GlobalReach: React.FC = () => {
 
       <div className="relative z-10 px-4 max-w-6xl mx-auto">
         <h2 className="text-xl lg:text-4xl font-extrabold text-primary lg:mb-8 mb-4 leading-tight">
-          Invento Global’s Worldwide Export Reach
+          Invento by Vee Kay Enterprises’ Worldwide Export Reach
         </h2>
 
         <p className="text-base lg:text-lg text-gray-700 max-w-3xl mx-auto mb-8">

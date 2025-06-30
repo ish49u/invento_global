@@ -1,12 +1,14 @@
 User-agent: *
+# Block old WooCommerce cart links
 Disallow: /*?add-to-cart=
+
+# Block old WordPress feeds (if these URLs are still being crawled)
 Disallow: /product-category/*/feed/
 Disallow: /product/*/feed/
 
-Allow: /
-
-# Host
-Host: https://inventoglobal.com
+# Optional: Block Next.js static build assets (not required, but you added it)
+Disallow: /_next/static/
+Disallow: /static/
 
 # Sitemap
 Sitemap: https://inventoglobal.com/sitemap.xml

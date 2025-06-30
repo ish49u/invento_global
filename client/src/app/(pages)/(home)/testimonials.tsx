@@ -58,7 +58,10 @@ const Testimonials: React.FC = () => {
     >
       <h2 className="text-xl lg:text-4xl font-bold text-center mb-6 text-black">
         Client Testimonials for{" "}
-        <span className="text-primary">Invento Global</span>
+        <h2 className="text-xl lg:text-4xl font-bold text-center mb-6 text-black">
+          Client Testimonials for{" "}
+          <span className="text-primary">Invento by Vee Kay Enterprises</span>
+        </h2>
       </h2>
 
       <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-xl flex items-center justify-center">
@@ -67,6 +70,10 @@ const Testimonials: React.FC = () => {
           itemScope
           itemType="https://schema.org/Review"
         >
+          <meta
+            itemProp="itemReviewed"
+            content="Invento by Vee Kay Enterprises"
+          />
           <blockquote
             className="text-sm lg:text-lg font-medium text-gray-700 mb-4"
             itemProp="reviewBody"

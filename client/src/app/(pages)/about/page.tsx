@@ -1,20 +1,69 @@
 // app/about/page.tsx
 
 import Image from "next/image";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:
+    "About Invento | India’s Leading Fasteners, Screws & Hardware Exporter",
+  description:
+    "Learn about Invento by Vee Kay Enterprises – trusted Indian manufacturer and exporter of fasteners, screws, copper handicrafts, and handcrafted bags.",
+  keywords: [
+    "fasteners exporter India",
+    "screws manufacturer",
+    "hardware suppliers India",
+    "copper handicrafts exporter",
+    "Invento Vee Kay Enterprises",
+  ],
+  alternates: {
+    canonical: "https://inventoglobal.com/about",
+  },
+  openGraph: {
+    title: "About Invento – India’s Trusted Hardware & Handicrafts Exporter",
+    description:
+      "Discover Invento by Vee Kay Enterprises, India’s premier manufacturer of screws, fasteners, copper handicrafts, and more.",
+    url: "https://inventoglobal.com/about",
+    siteName: "Invento Global",
+    type: "website",
+  },
+};
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen mt-32">
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            name: "About Invento by Vee Kay Enterprises",
+            url: "https://inventoglobal.com/about",
+            description:
+              "Invento by Vee Kay Enterprises is India’s leading manufacturer and exporter of fasteners, screws, hardware, copper handicrafts, and handcrafted bags.",
+            publisher: {
+              "@type": "Organization",
+              name: "Vee Kay Enterprises",
+              url: "https://inventoglobal.com",
+            },
+          }),
+        }}
+      />
+
       <div className="flex items-center justify-center">
         <div className="text-secondary italic lg:w-[70%] w-full h-32 flex flex-col items-center justify-center bg-primary">
-          <h2 className="lg:text-lg text-sm m-0">About Us</h2>
+          <h1 className="lg:text-lg text-sm m-0">
+            About Invento – India’s Leading Fasteners & Hardware Exporter
+          </h1>
           <p className="m-0 mt-3 lg:px-20 px-5 text-center lg:text-sm text-xs">
-            &quot;Merchant Exporters, Mfrs And Suppliers Of Fasteners, Screws,
-            Door And Windows Hardware Products, Hand Tools, Copper Handicrafts,
-            Handcrafted Bags, etc.&quot;
+            "Merchant Exporters, Manufacturers And Suppliers Of Fasteners,
+            Screws, Door And Windows Hardware Products, Hand Tools, Copper
+            Handicrafts, Handcrafted Bags, etc."
           </p>
         </div>
       </div>
+
       <main className="flex items-center justify-center bg-white">
         <div className="w-full flex flex-col md:flex-row p-2 md:p-12">
           {/* Left Image */}
@@ -31,26 +80,28 @@ export default function AboutPage() {
           {/* Center Content */}
           <div className="flex-1 flex flex-col justify-center">
             <blockquote className="text-sm md:text-2xl font-semibold italic text-gray-800 lg:mt-40 mt-5 lg:ml-4">
-              &quot;Quality is never an accident; it is always the result of
-              intelligent effort...
+              "Quality is never an accident; it is always the result of
+              intelligent effort."
             </blockquote>
 
             {/* Highlighted Part */}
             <div className="lg:p-6 mb-6 lg:-ml-40 w-[90%] self-center bg-white mt-0 shadow-md">
               <h2 className="text-sm md:text-sm text-center text-black font-normal">
-                Merchant Exporters, Mfrs And Suppliers Of Fasteners, Screws,
-                Door And Windows Hardware Products, Hand Tools, Copper
-                Handicrafts, Handcrafted Bags, etc.
+                Invento by Vee Kay Enterprises is India’s trusted manufacturer
+                and exporter of high-quality{" "}
+                <strong>industrial fasteners</strong>, <strong>screws</strong>,{" "}
+                <strong>door and window hardware</strong>,{" "}
+                <strong>brass hardware</strong>, <strong>hand tools</strong>,{" "}
+                <strong>copper handicrafts</strong>, and{" "}
+                <strong>handcrafted bags</strong>.
                 <p>
-                  <strong>Vee Kay Enterprises</strong>, operating under the
-                  brand name <strong>Invento</strong>, is one of India&apos;
-                  most trusted Merchant Exporters, Manufacturers, and Suppliers
-                  of industrial and handicraft products. We have established
-                  ourselves as a reputed name in the global market for our
-                  commitment to quality, consistency, and innovation.
+                  We deliver precision-engineered products globally, meeting the
+                  highest standards of <strong>hardware manufacturing</strong>{" "}
+                  and <strong>artisanal craftsmanship</strong>.
                 </p>
               </h2>
             </div>
+
             {/* About Content */}
             <div className="text-gray-600 leading-relaxed lg:space-y-6 text-sm md:text-base lg:-ml-96">
               {/* Introduction */}
@@ -73,11 +124,11 @@ export default function AboutPage() {
                 </h3>
                 <p>
                   We specialize in a wide variety of products including{" "}
-                  <strong>Fasteners</strong>,<strong> Screws</strong>,{" "}
-                  <strong> Door and Window Hardware</strong>,
-                  <strong> Hand Tools</strong>,{" "}
-                  <strong> Copper Handicrafts</strong>, and{" "}
-                  <strong> Handcrafted Bags</strong>. Each product is crafted
+                  <strong>Fasteners</strong>, <strong>Screws</strong>,{" "}
+                  <strong>Door and Window Hardware</strong>,{" "}
+                  <strong>Hand Tools</strong>,{" "}
+                  <strong>Copper Handicrafts</strong>, and{" "}
+                  <strong>Handcrafted Bags</strong>. Each product is crafted
                   with precision, reflecting our commitment to the highest
                   standards of manufacturing.
                 </p>
@@ -119,9 +170,22 @@ export default function AboutPage() {
                 <p>
                   Our mission is simple — to deliver products that represent
                   trust, durability, and exceptional craftsmanship.{" "}
-                  <strong>Vee Kay Enterprises</strong>
-                  is committed to expanding horizons, building lasting
-                  partnerships, and making a mark in every market we serve.
+                  <strong>Vee Kay Enterprises</strong> is committed to expanding
+                  horizons, building lasting partnerships, and making a mark in
+                  every market we serve.
+                </p>
+                {/* Internal Links */}
+                <p className="mt-4">
+                  Learn more about our{" "}
+                  <a href="/products" className="text-primary underline">
+                    product range
+                  </a>{" "}
+                  or{" "}
+                  <a href="/contact" className="text-primary underline">
+                    contact us
+                  </a>{" "}
+                  today to partner with India’s leading fasteners and hardware
+                  exporter.
                 </p>
               </div>
             </div>

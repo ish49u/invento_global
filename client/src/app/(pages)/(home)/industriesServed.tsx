@@ -30,11 +30,11 @@ const IndustriesServed: React.FC = () => {
 
   return (
     <section
-      className="lg:py-16 py-10 bg-white text-center px-2 sm:px-6 lg:px-32"
-      aria-label="Industries served by Invento Global"
+      className="lg:py-20 py-10 bg-[#F1E2B3] text-center relative overflow-hidden lg:mt-0 mt-5"
+      aria-label="Industries served by Invento by Vee Kay Enterprises"
     >
       <h2 className="text-xl lg:text-4xl font-bold text-black mb-10 sm:mb-16">
-        Industries Invento Global
+        Industries Invento by Vee Kay Enterprises
         <span className="relative inline-block ml-2 text-primary">
           Serves
           <span className="absolute left-1/2 bottom-0 w-1/2 h-0.5 bg-primary transform -translate-x-1/2"></span>

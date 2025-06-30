@@ -61,7 +61,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="fixed w-full top-0 left-0 z-50 bg-[#FAF9F6] shadow-lg">
-      <div className="flex lg:justify-between items-center px-4 py-2 lg:px-6">
+      <div className="flex justify-between items-center px-4 py-2 lg:px-6">
         {/* Hamburger Icon */}
         <div>
           <button
@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
               alt="Logo"
               width={90}
               height={80}
-              className="cursor-pointer lg:w-[85px] lg:h-full w-[50px] h-[50px]"
+              className="cursor-pointer lg:w-[90px] lg:h-full w-[50px] h-[50px]"
             />
           </Link>
         </div>

@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
               Punjab – 143501
             </p>
             <p className="text-xs">Phone: +91 94174 30218,+91 62839 48363</p>
-            <p className="text-xs">Email: inventoglobal@gmail.com</p>
+            <p className="text-xs">Email: export@inventoglobal.com</p>
           </div>
 
           {/* Social Media Section */}
@@ -115,7 +115,7 @@ const Footer: React.FC = () => {
                 <FaInstagram />
               </Link>
               <Link
-                href="https://www.youtube.com/@inventoglobal"
+                href="https://www.youtube.com/@INVENTOGLOBAL-i1c"
                 className="text-primary hover:text-hoverprimary"
               >
                 <FaYoutube />

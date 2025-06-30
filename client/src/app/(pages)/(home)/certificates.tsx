@@ -41,7 +41,7 @@ export default function Certificates() {
   return (
     <section
       className="flex flex-col items-center justify-center bg-white lg:px-4 px-2 lg:py-10 py-5 relative"
-      aria-label="Certifications and Accreditations of Invento Global"
+      aria-label="Certifications and Accreditations of Invento by Vee Kay Enterprises"
     >
       <h2 className="text-xl lg:text-4xl font-bold text-center lg:mb-6 mb-3 text-black">
         Certifications & Accreditations

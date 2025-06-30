@@ -53,13 +53,14 @@ const WhyChooseUs: React.FC = () => {
         id="why-choose-heading"
         className="text-xl lg:text-3xl font-bold mb-6 lg:mb-8"
       >
-        Why Choose Invento Global – Trusted Hardware Exporters
+        Why Choose Invento by Vee Kay Enterprises – Trusted Hardware Exporters
       </h2>
 
       <p className="text-sm lg:text-lg mb-4 lg:mb-12 px-2 lg:px-4 max-w-2xl lg:max-w-3xl mx-auto text-gray-700">
-        At Invento Global, we blend quality manufacturing with expert logistics
-        to provide reliable, certified, and timely hardware export services
-        worldwide. Here's why clients across the globe choose us.
+        At Invento by Vee Kay Enterprises, we blend quality manufacturing with
+        expert logistics to provide reliable, certified, and timely hardware
+        export services worldwide. Here’s why clients around the globe trust
+        Invento by Vee Kay Enterprises for their hardware needs.
       </p>
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 list-none p-0 m-0">

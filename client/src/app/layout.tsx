@@ -18,7 +18,7 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Invento Global – Hardware & Fastener Exporters",
+  title: "Invento by Vee Kay Enterprises – Hardware & Fastener Exporters",
   description:
     "Merchant Exporters, Manufacturers and Suppliers of Hardware, Hand Tools, Fasteners, Screws, Copper Handicrafts and more.",
   openGraph: {
@@ -92,12 +92,20 @@ export default function RootLayout({
       <body className={`${exo2.variable} ${lato.variable} antialiased`}>
         <GoogleAnalytics />
         <ClientLayout>
-          {children}
+          {/* Your header/navigation here */}
 
-          {/* Bottom ad only using component */}
-          <div style={{ padding: "20px 0", textAlign: "center" }}>
-            <GoogleAd />
-          </div>
+          <main>
+            {children} {/* Main page content */}
+            {/* Example: Safe in-content ad */}
+            <div style={{ margin: "40px 0", textAlign: "center" }}>
+              <div style={{ fontSize: "12px", color: "gray" }}>
+                Advertisement
+              </div>
+              <GoogleAd />
+            </div>
+          </main>
+
+          {/* Your footer here */}
         </ClientLayout>
       </body>
     </html>

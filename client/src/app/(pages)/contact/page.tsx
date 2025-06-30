@@ -16,7 +16,7 @@ export default function Contact() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/contact", {
+      const response = await fetch("https://inventoglobal.com/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,9 @@ export default function Contact() {
   return (
     <>
       <Head>
-        <title>Contact Us | Invento by Veekay Enterprises</title>
+        <title>
+          Contact Invento | Invento Screws & Fasteners Exporter India
+        </title>
         <meta
           name="description"
           content="Reach out to Invento, a Veekay Enterprises brand. We're here to help with any queries or collaborations."
@@ -138,7 +140,7 @@ export default function Contact() {
               Point Mehta Road Amritsar, Punjab – 143501
             </li>
             <li>
-              <strong>Email:</strong>inventoglobal@gmail.com
+              <strong>Email:</strong>export@inventoglobal.com
             </li>
             <li>
               <strong>Phone:</strong>+91 94174 30218,+91 62839 48363
