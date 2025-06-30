@@ -30,7 +30,7 @@ const IndustriesServed: React.FC = () => {
 
   return (
     <section
-      className="lg:py-20 py-10 bg-[#F1E2B3] text-center relative overflow-hidden lg:mt-0 mt-5"
+      className="lg:py-20 py-10 bg-white text-center relative overflow-hidden lg:mt-0 mt-5"
       aria-label="Industries served by Invento by Vee Kay Enterprises"
     >
       <h2 className="text-xl lg:text-4xl font-bold text-black mb-10 sm:mb-16">
