@@ -67,20 +67,30 @@ const Testimonials: React.FC = () => {
           itemScope
           itemType="https://schema.org/Review"
         >
-          <meta
+          <div
             itemProp="itemReviewed"
-            content="Invento by Vee Kay Enterprises"
-          />
+            itemScope
+            itemType="https://schema.org/Organization"
+          >
+            <meta itemProp="name" content="Invento by Vee Kay Enterprises" />
+          </div>
+
           <blockquote
             className="text-sm lg:text-lg font-medium text-gray-700 mb-4"
             itemProp="reviewBody"
           >
             “{review}”
           </blockquote>
+
           <footer>
-            <p className="text-xs lg:text-base text-gray-500" itemProp="author">
+            <div
+              itemProp="author"
+              itemScope
+              itemType="https://schema.org/Person"
+              className="text-xs lg:text-base text-gray-500"
+            >
               - <span itemProp="name">{name}</span>, {location}
-            </p>
+            </div>
           </footer>
         </figure>
 
