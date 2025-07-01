@@ -58,10 +58,7 @@ const Testimonials: React.FC = () => {
     >
       <h2 className="text-xl lg:text-4xl font-bold text-center mb-6 text-black">
         Client Testimonials for{" "}
-        <h2 className="text-xl lg:text-4xl font-bold text-center mb-6 text-black">
-          Client Testimonials for{" "}
-          <span className="text-primary">Invento by Vee Kay Enterprises</span>
-        </h2>
+        <span className="text-primary">Invento by Vee Kay Enterprises</span>
       </h2>
 
       <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-xl flex items-center justify-center">
