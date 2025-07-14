@@ -39,6 +39,71 @@ export default function ProductsPage() {
   const [activeProduct, setActiveProduct] = useState<Product | null>(null);
   const productsPerPage = 10;
 
+  function ProductImageSlider({ images }: { images: string[] }) {
+    const [index, setIndex] = useState(0);
+
+    const prev = () => setIndex(index === 0 ? images.length - 1 : index - 1);
+    const next = () => setIndex(index === images.length - 1 ? 0 : index + 1);
+    const handleSelect = (i: number) => setIndex(i);
+
+    return (
+      <div className="w-full max-w-3xl mx-auto">
+        {/* Top Section: Arrows + Large Image */}
+        <div className="flex items-center justify-center gap-4">
+          {/* Left Arrow */}
+          {images.length > 1 && (
+            <button
+              onClick={prev}
+              className="bg-white border shadow-md text-black rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-100"
+            >
+              ‹
+            </button>
+          )}
+
+          {/* Main Image */}
+          <div className="flex-1 overflow-hidden border rounded-lg">
+            <img
+              src={`https://inventoglobal.com${images[index]}`}
+              alt={`Product Image ${index + 1}`}
+              className="w-full h-full object-contain max-h-[500px]"
+            />
+          </div>
+
+          {/* Right Arrow */}
+          {images.length > 1 && (
+            <button
+              onClick={next}
+              className="bg-white border shadow-md text-black rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-100"
+            >
+              ›
+            </button>
+          )}
+        </div>
+
+        {/* Thumbnails */}
+        {images.length > 1 && (
+          <div className="flex justify-center mt-4 space-x-2">
+            {images.map((img, i) => (
+              <div
+                key={i}
+                onClick={() => handleSelect(i)}
+                className={`w-14 h-14 border-2 rounded-md cursor-pointer overflow-hidden ${
+                  i === index ? "border-primary" : "border-gray-300"
+                }`}
+              >
+                <img
+                  src={`https://inventoglobal.com${img}`}
+                  alt={`Thumbnail ${i + 1}`}
+                  className="w-full h-full object-cover transition-transform hover:scale-105"
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -145,17 +210,22 @@ export default function ProductsPage() {
               className="border rounded-xl shadow-md flex flex-col items-center text-center bg-white hover:shadow-lg transition"
             >
               <div className="lg:w-full w-[50%] lg:h-44 h-24 lg:mb-4 mb-2 overflow-hidden border-2 border-gray-200">
-                <img
-                  src={
-                    product.images && product.images.length > 0
-                      ? `https://inventoglobal.com${product.images[0]}`
-                      : product.image
-                      ? `https://inventoglobal.com/${product.image}`
-                      : "/placeholder.jpg" // optional fallback image
-                  }
-                  alt={product.title}
-                  className="w-full h-full object-cover"
-                />
+                {/* Slideshow for product images */}
+                <div className="relative w-full h-full">
+                  {product.images && product.images.length > 0 ? (
+                    <ProductImageSlider images={product.images} />
+                  ) : (
+                    <img
+                      src={
+                        product.image
+                          ? `https://inventoglobal.com/${product.image}`
+                          : "/placeholder.jpg"
+                      }
+                      alt={product.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </div>
               </div>
               <div className="lg:p-4 p-2 lg:h-[50px] h-[25px]">
                 <h2 className="lg:text-lg text-sm font-semibold text-black mb-0">
