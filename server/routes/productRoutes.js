@@ -15,6 +15,18 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+router.get("/", async (req, res) => {
+  try {
+    const category = req.query.category;
+    const products = category
+      ? await Product.find({ category })
+      : await Product.find();
+    res.json(products);
+  } catch (err) {
+    console.error("Error fetching products:", err);
+    res.status(500).json({ error: "Failed to fetch products." });
+  }
+});
 
 // Create product with image upload
 router.post("/", upload.array("images", 10), async (req, res) => {
