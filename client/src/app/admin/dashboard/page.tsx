@@ -21,6 +21,7 @@ export default function Dashboard() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
   // Hardcoded credentials
   const validUsers = [
@@ -31,7 +32,7 @@ export default function Dashboard() {
   const [form, setForm] = useState({
     title: "",
     description: "",
-    imageFile: null as File | null,
+    imageFiles: [] as File[],
     moreDetails: "", // <-- Added this
   });
   const [editId, setEditId] = useState<string | null>(null);
@@ -107,7 +108,8 @@ export default function Dashboard() {
   };
 
   const resetForm = () => {
-    setForm({ title: "", description: "", imageFile: null, moreDetails: "" });
+    setForm({ title: "", description: "", imageFiles: [], moreDetails: "" });
+    setPreviewUrls([]);
     setEditId(null);
   };
 
@@ -125,9 +127,9 @@ export default function Dashboard() {
     formData.append("description", form.description);
     formData.append("category", category);
     formData.append("moreDetails", form.moreDetails);
-    if (form.imageFile) {
-      formData.append("image", form.imageFile);
-    }
+    form.imageFiles.forEach((file) => {
+      formData.append("images", file); // Must match backend field name
+    });
 
     try {
       await fetch("https://inventoglobal.com/api/products", {
@@ -169,9 +171,9 @@ export default function Dashboard() {
     formData.append("category", category);
     formData.append("moreDetails", form.moreDetails);
 
-    if (form.imageFile) {
-      formData.append("image", form.imageFile);
-    }
+    form.imageFiles.forEach((file) => {
+      formData.append("images", file); // Must match backend field name
+    });
 
     try {
       await fetch(`https://inventoglobal.com/api/products/${editId}`, {
@@ -226,17 +228,28 @@ export default function Dashboard() {
     setForm({
       title: product.title,
       description: product.description,
-      imageFile: null,
-      moreDetails: product.moreDetails || "", // <-- Add this // Keep image as null to avoid overwriting it
+      imageFiles: [],
+      moreDetails: product.moreDetails || "",
     });
+
     setCategory(product.category);
     setEditId(product._id);
 
-    // Scroll to the top when editing a product
-    window.scrollTo({ top: 0, behavior: "smooth" }); // Assuming your product has an _id field
+    // Generate preview URLs from product.images or product.image
+    if (product.images && Array.isArray(product.images)) {
+      setPreviewUrls(
+        product.images.map((img: string) => `https://inventoglobal.com${img}`)
+      );
+    } else if (product.image) {
+      setPreviewUrls([`https://inventoglobal.com${product.image}`]);
+    } else {
+      setPreviewUrls([]);
+    }
+
+    // Scroll to top when editing
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // ===== Render =====
   // ===== Render =====
   if (!loggedIn) {
     return (
@@ -358,25 +371,38 @@ export default function Dashboard() {
                 <input
                   className="border p-2 rounded"
                   type="file"
-                  onChange={(e) =>
-                    setForm({ ...form, imageFile: e.target.files?.[0] || null })
-                  }
+                  multiple
+                  onChange={(e) => {
+                    const files = e.target.files
+                      ? Array.from(e.target.files)
+                      : [];
+
+                    setForm({
+                      ...form,
+                      imageFiles: files,
+                    });
+
+                    // Generate preview URLs
+                    const urls = files.map((file) => URL.createObjectURL(file));
+                    setPreviewUrls(urls);
+                  }}
                 />
-                {/* <div className="mb-4">
-                  <label className="block mb-1 font-semibold text-black">
-                    More Details
-                  </label>
-                  <textarea
-                    value={form.moreDetails}
-                    onChange={(e) =>
-                      setForm({ ...form, moreDetails: e.target.value })
-                    }
-                    className="w-full border p-2 rounded"
-                    rows={4}
-                    placeholder="Enter additional details here..."
-                  />
-                </div> */}
               </div>
+
+              {previewUrls.length > 0 && (
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  {previewUrls.map((url, index) => (
+                    <img
+                      key={index}
+                      src={
+                        typeof url === "string" ? url : URL.createObjectURL(url)
+                      }
+                      alt={`Preview ${index + 1}`}
+                      className="w-full h-24 object-cover rounded border"
+                    />
+                  ))}
+                </div>
+              )}
 
               <div className="mt-4">
                 {editId ? (
@@ -435,13 +461,27 @@ export default function Dashboard() {
                   <p className="text-xs text-gray-600 h-20">
                     {product.description}
                   </p>
-                  {product.image && (
+                  {product.images &&
+                  Array.isArray(product.images) &&
+                  product.images.length > 0 ? (
+                    <div className="grid grid-cols-2 gap-2 mt-2">
+                      {product.images.map((img: string, index: number) => (
+                        <img
+                          key={index}
+                          src={`https://inventoglobal.com${img}`}
+                          alt={`${product.title} image ${index + 1}`}
+                          className="w-full h-20 object-cover rounded"
+                        />
+                      ))}
+                    </div>
+                  ) : product.image ? (
                     <img
                       src={`https://inventoglobal.com${product.image}`}
                       alt={product.title}
                       className="w-full h-20 object-cover mt-2 rounded"
                     />
-                  )}
+                  ) : null}
+
                   <div className="mt-4 flex gap-2">
                     <button
                       onClick={() => handleEdit(product)}

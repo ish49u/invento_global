@@ -7,7 +7,8 @@ type Product = {
   title: string;
   description: string;
   category: string;
-  image: string;
+  image?: string; // old single-image support
+  images?: string[]; // new multi-image support
 };
 
 const categories = [
@@ -145,7 +146,13 @@ export default function ProductsPage() {
             >
               <div className="lg:w-full w-[50%] lg:h-44 h-24 lg:mb-4 mb-2 overflow-hidden border-2 border-gray-200">
                 <img
-                  src={`https://inventoglobal.com/${product.image}`}
+                  src={
+                    product.images && product.images.length > 0
+                      ? `https://inventoglobal.com${product.images[0]}`
+                      : product.image
+                      ? `https://inventoglobal.com/${product.image}`
+                      : "/placeholder.jpg" // optional fallback image
+                  }
                   alt={product.title}
                   className="w-full h-full object-cover"
                 />
