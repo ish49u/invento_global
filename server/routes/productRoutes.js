@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Create product with image upload
-router.post("/", uupload.array("images", 10) , async (req, res) => {
+router.post("/", upload.array("images", 10) , async (req, res) => {
   try {
     const { title, description, category } = req.body;
     
